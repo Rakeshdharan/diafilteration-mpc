@@ -225,10 +225,10 @@ def show_mpc() -> None:
 
     # 1.1. Tracking MPC
     st.markdown("---"); st.markdown("### 1.1. Tracking MPC")
-    N = st.slider("Prediction horizon N", 5, 50, 20)
+    N = st.slider("Prediction horizon N", 1, 50, 5)
     t_b, V_b, ML_b, u_b = simulate(spec_controller(N), Nominal(P))
     cP_b, cL_b = P.MP / V_b, ML_b / V_b
-    plot_charts("Baseline MPC", t_b, cP_b, cL_b, u_b)
+    plot_charts("Tracking MPC", t_b, cP_b, cL_b, u_b)
     st.info(f"⏱️ Batch time **{batch_time(t_b, cP_b, cL_b):.2f} h**")
 
     # 1.2. Tracking MPC fixed N
@@ -325,18 +325,18 @@ def show_tests() -> None:
     st.markdown("## Test scenarios")
 
     # 1. Filter-cake tear scenario
-    st.subheader("1. Filter-cake tear disturbance")
-    t, V, ML, u = simulate(spec_controller(5), Tear(P))
+    st.subheader("1. Filter-cake tear disturbance vs Best MPC")
+    t, V, ML, u = simulate(econ_controller(20), Tear(P))
     plot_charts("Tear disturbance", t, P.MP / V, ML / V, u, highlight_tear=True)
 
     # 2. Plant-model mismatch scenario
-    st.subheader("2. Plant-model mismatch (robust MPC)")
+    st.subheader("2. Plant-model mismatch (vs Best MPC)")
     tol = 1e-3
     summary = []
 
     for factor in [0.75, 0.5, 0.25]:
         scen = KmMismatch(factor, P)
-        t, V, ML, u = simulate(mpc_robust(5), scen)
+        t, V, ML, u = simulate(econ_controller(20), scen)
         plot_charts(f"Mismatch factor {factor}", t, P.MP / V, ML / V, u)
 
         cP = P.MP / V
@@ -367,9 +367,9 @@ def show_tests() -> None:
         col.info(f"factor {factor}: {msg}")
 
     # 3. Protein leakage scenario
-    st.subheader("3. Protein leakage (β = 1.3)")
+    st.subheader("3. Protein leakage (β = 1.3) vs Best MPC")
     scen = ProteinLeakage()
-    t, V, ML, u = simulate(spec_controller(5), scen)
+    t, V, ML, u = simulate(econ_controller(20), scen)
     plot_charts("Protein leakage", t, P.MP / V, ML / V, u)
 
     # 4. Monte-Carlo robustness test
