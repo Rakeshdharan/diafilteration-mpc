@@ -129,7 +129,7 @@ Monte-Carlo stress testing with randomised plants
 ## 📜 Citing
 ```bibtex
 @misc{mirzayev2025diafiltration,
-  author       = {Mirzayev, Elmir and Dharan, Rakesh and Krishan, Kirupa},
+  author       = {Mirzayev, Elmir and Dhamodharan, Rakesh and Krishan, Kirupa},
   title        = {Diafiltration Process MPC},
   year         = {2025},
   howpublished = {\url{https://github.com/sa1ntsinner/diafiltration-project}},
@@ -140,7 +140,7 @@ Monte-Carlo stress testing with randomised plants
 
 **Contributors:**  
 🧑‍💻 Elmir Mirzayev ([sa1ntsinner](https://github.com/sa1ntsinner))  
-🧑‍💻 Rakesh Dharan ([Rakeshdharan](https://github.com/Rakeshdharan))  
+🧑‍💻 Rakesh Dhamodharan ([Rakeshdharan](https://github.com/Rakeshdharan))  
 🧑‍💻 Kirupa Krishan ([kirupakrishan](https://github.com/kirupakrishan))
 
 ---
